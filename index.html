@@ -1,0 +1,945 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>LIAC-ARFF v2.1 &#8212; liac-arff 2.0 documentation</title>
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">liac-arff 2.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="#">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">LIAC-ARFF v2.1</a><ul>
+<li><a class="reference internal" href="#module-arff">Introduction</a><ul>
+<li><a class="reference internal" href="#arff-files-in-python">ARFF Files in Python</a></li>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#how-to-get-liac-arff">How to Get LIAC-ARFF</a></li>
+<li><a class="reference internal" href="#how-to-install">How To Install</a></li>
+<li><a class="reference internal" href="#what-s-new-in-liac-arff">What’s New in LIAC-ARFF</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li><a class="reference internal" href="#encoders-and-decoders">Encoders and Decoders</a></li>
+<li><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li><a class="reference internal" href="#unicode">Unicode</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#dumping-an-object">Dumping An Object</a></li>
+<li><a class="reference internal" href="#loading-an-object">Loading An Object</a></li>
+<li><a class="reference internal" href="#loading-an-object-with-encoded-labels">Loading An Object with encoded labels</a></li>
+<li><a class="reference internal" href="#working-with-sparse-data">Working with sparse data</a><ul>
+<li><a class="reference internal" href="#dumping-sparse-data">Dumping sparse data</a></li>
+<li><a class="reference internal" href="#loading-sparse-data">Loading sparse data</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#loading-progressively">Loading progressively</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="liac-arff-v2-1">
+<h1>LIAC-ARFF v2.1<a class="headerlink" href="#liac-arff-v2-1" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#module-arff" id="id1">Introduction</a></p>
+<ul>
+<li><p><a class="reference internal" href="#arff-files-in-python" id="id2">ARFF Files in Python</a></p></li>
+<li><p><a class="reference internal" href="#features" id="id3">Features</a></p></li>
+<li><p><a class="reference internal" href="#how-to-get-liac-arff" id="id4">How to Get LIAC-ARFF</a></p></li>
+<li><p><a class="reference internal" href="#how-to-install" id="id5">How To Install</a></p></li>
+<li><p><a class="reference internal" href="#what-s-new-in-liac-arff" id="id6">What’s New in LIAC-ARFF</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#basic-usage" id="id7">Basic Usage</a></p></li>
+<li><p><a class="reference internal" href="#encoders-and-decoders" id="id8">Encoders and Decoders</a></p></li>
+<li><p><a class="reference internal" href="#exceptions" id="id9">Exceptions</a></p></li>
+<li><p><a class="reference internal" href="#unicode" id="id10">Unicode</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id11">Examples</a></p>
+<ul>
+<li><p><a class="reference internal" href="#dumping-an-object" id="id12">Dumping An Object</a></p></li>
+<li><p><a class="reference internal" href="#loading-an-object" id="id13">Loading An Object</a></p></li>
+<li><p><a class="reference internal" href="#loading-an-object-with-encoded-labels" id="id14">Loading An Object with encoded labels</a></p></li>
+<li><p><a class="reference internal" href="#working-with-sparse-data" id="id15">Working with sparse data</a></p></li>
+<li><p><a class="reference internal" href="#loading-progressively" id="id16">Loading progressively</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="module-arff">
+<span id="introduction"></span><h2><a class="toc-backref" href="#id1">Introduction</a><a class="headerlink" href="#module-arff" title="Permalink to this headline">¶</a></h2>
+<p>The liac-arff module implements functions to read and write ARFF files in
+Python. It was created in the Connectionist Artificial Intelligence Laboratory
+(LIAC), which takes place at the Federal University of Rio Grande do Sul
+(UFRGS), in Brazil.</p>
+<p>ARFF (Attribute-Relation File Format) is an file format specially created for
+describe datasets which are commonly used for machine learning experiments and
+softwares. This file format was created to be used in Weka, the best
+representative software for machine learning automated experiments.</p>
+<p>An ARFF file can be divided into two sections: header and data. The Header
+describes the metadata of the dataset, including a general description of the
+dataset, its name and its attributes. The source below is an example of a
+header section in a XOR dataset:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span>
+<span class="o">%</span> <span class="n">XOR</span> <span class="n">Dataset</span>
+<span class="o">%</span>
+<span class="o">%</span> <span class="n">Created</span> <span class="n">by</span> <span class="n">Renato</span> <span class="n">Pereira</span>
+<span class="o">%</span>            <span class="n">rppereira</span><span class="nd">@inf</span><span class="o">.</span><span class="n">ufrgs</span><span class="o">.</span><span class="n">br</span>
+<span class="o">%</span>            <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">inf</span><span class="o">.</span><span class="n">ufrgs</span><span class="o">.</span><span class="n">br</span><span class="o">/~</span><span class="n">rppereira</span>
+<span class="o">%</span>
+<span class="o">%</span>
+<span class="nd">@RELATION</span> <span class="n">XOR</span>
+
+<span class="nd">@ATTRIBUTE</span> <span class="n">input1</span> <span class="n">REAL</span>
+<span class="nd">@ATTRIBUTE</span> <span class="n">input2</span> <span class="n">REAL</span>
+<span class="nd">@ATTRIBUTE</span> <span class="n">y</span> <span class="n">REAL</span>
+</pre></div>
+</div>
+<p>The Data section of an ARFF file describes the observations of the dataset, in
+the case of XOR dataset:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@DATA</span>
+<span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span>
+<span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span>
+<span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span>
+<span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span>
+<span class="o">%</span>
+<span class="o">%</span>
+<span class="o">%</span>
+</pre></div>
+</div>
+<p>Notice that several lines are starting with an <code class="docutils literal notranslate"><span class="pre">%</span></code> symbol, denoting a
+comment, thus, lines with <code class="docutils literal notranslate"><span class="pre">%</span></code> at the beginning will be ignored, except by the
+description part at the beginning of the file. The declarations <code class="docutils literal notranslate"><span class="pre">&#64;RELATION</span></code>,
+<code class="docutils literal notranslate"><span class="pre">&#64;ATTRIBUTE</span></code>, and <code class="docutils literal notranslate"><span class="pre">&#64;DATA</span></code> are all case insensitive and obligatory.</p>
+<p>For more information and details about the ARFF file description, consult
+<a class="reference external" href="http://www.cs.waikato.ac.nz/~ml/weka/arff.html">http://www.cs.waikato.ac.nz/~ml/weka/arff.html</a></p>
+<div class="section" id="arff-files-in-python">
+<h3><a class="toc-backref" href="#id2">ARFF Files in Python</a><a class="headerlink" href="#arff-files-in-python" title="Permalink to this headline">¶</a></h3>
+<p>This module uses built-ins python objects to represent a deserialized ARFF
+file. A dictionary is used as the container of the data and metadata of ARFF,
+and have the following keys:</p>
+<ul>
+<li><p><strong>description</strong>: (OPTIONAL) a string with the description of the dataset.</p></li>
+<li><p><strong>relation</strong>: (OBLIGATORY) a string with the name of the dataset.</p></li>
+<li><p><strong>attributes</strong>: (OBLIGATORY) a list of attributes with the following
+template:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">attribute_name</span><span class="p">,</span> <span class="n">attribute_type</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the attribute_name is a string, and attribute_type must be an string
+or a list of strings.</p>
+</li>
+<li><p><strong>data</strong>: (OBLIGATORY) a list of data instances. Each data instance must be
+a list with values, depending on the attributes.</p></li>
+</ul>
+<p>The above keys must follow the case which were described, i.e., the keys are
+case sensitive. The attribute type <code class="docutils literal notranslate"><span class="pre">attribute_type</span></code> must be one of these
+strings (they are not case sensitive): <code class="docutils literal notranslate"><span class="pre">NUMERIC</span></code>, <code class="docutils literal notranslate"><span class="pre">INTEGER</span></code>, <code class="docutils literal notranslate"><span class="pre">REAL</span></code> or
+<code class="docutils literal notranslate"><span class="pre">STRING</span></code>. For nominal attributes, the <code class="docutils literal notranslate"><span class="pre">atribute_type</span></code> must be a list of
+strings.</p>
+<p>In this format, the XOR dataset presented above can be represented as a python
+object as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">xor_dataset</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;XOR Dataset&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;relation&#39;</span><span class="p">:</span> <span class="s1">&#39;XOR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+        <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="features">
+<h3><a class="toc-backref" href="#id3">Features</a><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<p>This module provides several features, including:</p>
+<ul class="simple">
+<li><p>Read and write ARFF files using python built-in structures, such dictionaries
+and lists;</p></li>
+<li><p>Supports <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.coo_matrix.html#scipy.sparse.coo_matrix">scipy.sparse.coo</a>
+and lists of dictionaries as used by SVMLight</p></li>
+<li><p>Supports the following attribute types: NUMERIC, REAL, INTEGER, STRING, and
+NOMINAL;</p></li>
+<li><p>Has an interface similar to other built-in modules such as <code class="docutils literal notranslate"><span class="pre">json</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">zipfile</span></code>;</p></li>
+<li><p>Supports read and write the descriptions of files;</p></li>
+<li><p>Supports missing values and names with spaces;</p></li>
+<li><p>Supports unicode values and names;</p></li>
+<li><p>Fully compatible with Python 2.7+, Python 3.3+, pypy and pypy3;</p></li>
+<li><p>Under <a class="reference external" href="http://opensource.org/licenses/MIT">MIT License</a></p></li>
+</ul>
+</div>
+<div class="section" id="how-to-get-liac-arff">
+<h3><a class="toc-backref" href="#id4">How to Get LIAC-ARFF</a><a class="headerlink" href="#how-to-get-liac-arff" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference external" href="https://github.com/renatopp/liac-arff">https://github.com/renatopp/liac-arff</a></p>
+</div>
+<div class="section" id="how-to-install">
+<h3><a class="toc-backref" href="#id5">How To Install</a><a class="headerlink" href="#how-to-install" title="Permalink to this headline">¶</a></h3>
+<p>Via pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install liac-arff
+</pre></div>
+</div>
+<p>Via easy_install:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ easy_install liac-arff
+</pre></div>
+</div>
+<p>Manually:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py install
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-s-new-in-liac-arff">
+<h3><a class="toc-backref" href="#id6">What’s New in LIAC-ARFF</a><a class="headerlink" href="#what-s-new-in-liac-arff" title="Permalink to this headline">¶</a></h3>
+<p>LIAC-ARFF 2.4</p>
+<ul class="simple">
+<li><p>enhancement: load data progressively with generator <cite>return_type</cite>.</p></li>
+<li><p>enhancement: standard Java escape sequences are now decoded in string
+attributes, and non-printable characters are now encoded with escaping.</p></li>
+<li><p>fix: match all possible separator spaces to add quotes when encoding into
+ARFF. These separator spaces will be preserved when decoding the ARFF files.</p></li>
+</ul>
+<p>LIAC-ARFF 2.3.1</p>
+<ul class="simple">
+<li><p>maintenance: replace two bare <code class="docutils literal notranslate"><span class="pre">raise</span></code> by appropriate <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">Exception</span></code>
+statements</p></li>
+<li><p>maintenance: avoid deprecation warning in Python &gt;= 3.6</p></li>
+</ul>
+<p>LIAC-ARFF 2.3</p>
+<ul class="simple">
+<li><p>enhancement: improvements to loading runtime (issue #76)</p></li>
+<li><p>fix: several bugs in decoding and encoding quoted and escaped values,
+particularly in loading sparse ARFF.</p></li>
+<li><p>fix #52: Circumvent a known bug when loading sparse data written by WEKA</p></li>
+</ul>
+<p>LIAC-ARFF 2.2.3</p>
+<ul class="simple">
+<li><p>new: test for python3.7 and pypy3</p></li>
+</ul>
+<p>LIAC-ARFF 2.2.2</p>
+<ul class="simple">
+<li><p>fix: better support for string and nominal features containing escape
+characters (issue #69).</p></li>
+</ul>
+<p>LIAC-ARFF 2.2.1</p>
+<ul class="simple">
+<li><p>fix: better support for string features and nominals containing commas
+(issue # 64)</p></li>
+</ul>
+<p>LIAC-ARFF 2.2</p>
+<ul class="simple">
+<li><p>fix: do not treat quoted questionmarks as missing values (issue #50)</p></li>
+<li><p>fix: compability issue using zip with python2.7</p></li>
+<li><p>fix: categorical quoting if comma is present (issue #15)</p></li>
+<li><p>fix: remove training comment lines (issue #61)</p></li>
+<li><p>new: test for python3.5 and python3.6 as well</p></li>
+<li><p>new: drop python2.6 support</p></li>
+</ul>
+<p>LIAC-ARFF 2.1.1</p>
+<ul class="simple">
+<li><p>fix: working for 2.6+</p></li>
+<li><p>fix: working for 3.3+</p></li>
+<li><p>new: encoder checks if data has all attributes</p></li>
+<li><p>new: sparse data support</p></li>
+</ul>
+<p>LIAC-ARFF 2.1.0</p>
+<ul class="simple">
+<li><p>fix: working for 2.6+</p></li>
+<li><p>fix: working for 3.3+</p></li>
+<li><p>new: encoder checks if data has all attributes</p></li>
+<li><p>new: sparse data support</p></li>
+</ul>
+<p>LIAC-ARFF 2.0.2</p>
+<ul class="simple">
+<li><p>fix: attribute and relation names now follow the new ARFF specification.</p></li>
+<li><p>new: encoded nominal values.</p></li>
+</ul>
+<p>LIAC-ARFF 2.0.1</p>
+<ul class="simple">
+<li><p>fix: dump now escapes correctly special symbols, such %, ‘, “, and .</p></li>
+</ul>
+<p>LIAC-ARFF 2.0</p>
+<ul class="simple">
+<li><p>new: ArffEncoder and ArffDecoder helpers which actually do the serialization
+and loading of ARFF files.</p></li>
+<li><p>new: UnitTest cases for all classes and functions.</p></li>
+<li><p>new: Detailed exceptions for many cases.</p></li>
+<li><p>fix: load, loads, dump, dumps are now simpler.</p></li>
+<li><p>rem: arfftools.py and the split function.</p></li>
+</ul>
+<p>LIAC-ARFF 1.0</p>
+<p>First commit.</p>
+<ul class="simple">
+<li><p>new: load, loads, dump, dumps functions</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="basic-usage">
+<h2><a class="toc-backref" href="#id7">Basic Usage</a><a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="arff.load">
+<code class="descclassname">arff.</code><code class="descname">load</code><span class="sig-paren">(</span><em>fp</em>, <em>encode_nominal=False</em>, <em>return_type=0</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a file-like object containing the ARFF document and convert it into
+a Python object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fp</strong> – a file-like object.</p></li>
+<li><p><strong>encode_nominal</strong> – boolean, if True perform a label encoding
+while reading the .arff file.</p></li>
+<li><p><strong>return_type</strong> – determines the data structure used to store the
+dataset. Can be one of <cite>arff.DENSE</cite>, <cite>arff.COO</cite>, <cite>arff.LOD</cite>,
+<cite>arff.DENSE_GEN</cite> or <cite>arff.LOD_GEN</cite>.
+Consult the sections on <a class="reference internal" href="#working-with-sparse-data">working with sparse data</a> and <a class="reference internal" href="#loading-progressively">loading
+progressively</a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arff.loads">
+<code class="descclassname">arff.</code><code class="descname">loads</code><span class="sig-paren">(</span><em>s</em>, <em>encode_nominal=False</em>, <em>return_type=0</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string instance containing the ARFF document into a Python
+object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> – a string object.</p></li>
+<li><p><strong>encode_nominal</strong> – boolean, if True perform a label encoding
+while reading the .arff file.</p></li>
+<li><p><strong>return_type</strong> – determines the data structure used to store the
+dataset. Can be one of <cite>arff.DENSE</cite>, <cite>arff.COO</cite>, <cite>arff.LOD</cite>,
+<cite>arff.DENSE_GEN</cite> or <cite>arff.LOD_GEN</cite>.
+Consult the sections on <a class="reference internal" href="#working-with-sparse-data">working with sparse data</a> and <a class="reference internal" href="#loading-progressively">loading
+progressively</a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arff.dump">
+<code class="descclassname">arff.</code><code class="descname">dump</code><span class="sig-paren">(</span><em>obj</em>, <em>fp</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize an object representing the ARFF document to a given file-like
+object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> – a dictionary.</p></li>
+<li><p><strong>fp</strong> – a file-like object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="arff.dumps">
+<code class="descclassname">arff.</code><code class="descname">dumps</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.dumps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serialize an object representing the ARFF document, returning a string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> – a dictionary.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a string with the ARFF document.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="encoders-and-decoders">
+<h2><a class="toc-backref" href="#id8">Encoders and Decoders</a><a class="headerlink" href="#encoders-and-decoders" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="arff.ArffDecoder">
+<em class="property">class </em><code class="descclassname">arff.</code><code class="descname">ArffDecoder</code><a class="headerlink" href="#arff.ArffDecoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>An ARFF decoder.</p>
+<dl class="method">
+<dt id="arff.ArffDecoder.decode">
+<code class="descname">decode</code><span class="sig-paren">(</span><em>s</em>, <em>encode_nominal=False</em>, <em>return_type=0</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.ArffDecoder.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the Python representation of a given ARFF file.</p>
+<p>When a file object is passed as an argument, this method reads lines
+iteratively, avoiding to load unnecessary information to the memory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> – a string or file object with the ARFF file.</p></li>
+<li><p><strong>encode_nominal</strong> – boolean, if True perform a label encoding
+while reading the .arff file.</p></li>
+<li><p><strong>return_type</strong> – determines the data structure used to store the
+dataset. Can be one of <cite>arff.DENSE</cite>, <cite>arff.COO</cite>, <cite>arff.LOD</cite>,
+<cite>arff.DENSE_GEN</cite> or <cite>arff.LOD_GEN</cite>.
+Consult the sections on <a class="reference internal" href="#working-with-sparse-data">working with sparse data</a> and <a class="reference internal" href="#loading-progressively">loading
+progressively</a>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="arff.ArffEncoder">
+<em class="property">class </em><code class="descclassname">arff.</code><code class="descname">ArffEncoder</code><a class="headerlink" href="#arff.ArffEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>An ARFF encoder.</p>
+<dl class="method">
+<dt id="arff.ArffEncoder.encode">
+<code class="descname">encode</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.ArffEncoder.encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encodes a given object to an ARFF file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> – the object containing the ARFF information.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the ARFF file as an unicode string.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="arff.ArffEncoder.iter_encode">
+<code class="descname">iter_encode</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.ArffEncoder.iter_encode" title="Permalink to this definition">¶</a></dt>
+<dd><p>The iterative version of <cite>arff.ArffEncoder.encode</cite>.</p>
+<p>This encodes iteratively a given object and return, one-by-one, the
+lines of the ARFF file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> – the object containing the ARFF information.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(yields) the ARFF file as unicode strings.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="exceptions">
+<h2><a class="toc-backref" href="#id9">Exceptions</a><a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="arff.BadRelationFormat">
+<em class="property">exception </em><code class="descclassname">arff.</code><code class="descname">BadRelationFormat</code><a class="headerlink" href="#arff.BadRelationFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when the relation declaration is in an invalid format.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="arff.BadAttributeFormat">
+<em class="property">exception </em><code class="descclassname">arff.</code><code class="descname">BadAttributeFormat</code><a class="headerlink" href="#arff.BadAttributeFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when some attribute declaration is in an invalid format.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="arff.BadDataFormat">
+<em class="property">exception </em><code class="descclassname">arff.</code><code class="descname">BadDataFormat</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.BadDataFormat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when some data instance is in an invalid format.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="arff.BadAttributeType">
+<em class="property">exception </em><code class="descclassname">arff.</code><code class="descname">BadAttributeType</code><a class="headerlink" href="#arff.BadAttributeType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when some invalid type is provided into the attribute
+declaration.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="arff.BadNominalValue">
+<em class="property">exception </em><code class="descclassname">arff.</code><code class="descname">BadNominalValue</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.BadNominalValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when a value in used in some data instance but is not
+declared into it respective attribute declaration.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="arff.BadNumericalValue">
+<em class="property">exception </em><code class="descclassname">arff.</code><code class="descname">BadNumericalValue</code><a class="headerlink" href="#arff.BadNumericalValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when and invalid numerical value is used in some data
+instance.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="arff.BadLayout">
+<em class="property">exception </em><code class="descclassname">arff.</code><code class="descname">BadLayout</code><span class="sig-paren">(</span><em>msg=''</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.BadLayout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when the layout of the ARFF file has something wrong.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="arff.BadObject">
+<em class="property">exception </em><code class="descclassname">arff.</code><code class="descname">BadObject</code><span class="sig-paren">(</span><em>msg='Invalid object.'</em><span class="sig-paren">)</span><a class="headerlink" href="#arff.BadObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Error raised when the object representing the ARFF file has something
+wrong.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="unicode">
+<h2><a class="toc-backref" href="#id10">Unicode</a><a class="headerlink" href="#unicode" title="Permalink to this headline">¶</a></h2>
+<p>LIAC-ARFF works with unicode (for python 2.7+, in python 3.x this is default),
+and to take advantage of it, you need to load the arff file using <code class="docutils literal notranslate"><span class="pre">codecs</span></code>,
+specifying its codification:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">import</span> <span class="nn">arff</span>
+
+<span class="n">file_</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;/path/to/file.arff&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+<span class="n">arff</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file_</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id11">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dumping-an-object">
+<h3><a class="toc-backref" href="#id12">Dumping An Object</a><a class="headerlink" href="#dumping-an-object" title="Permalink to this headline">¶</a></h3>
+<p>Converting an object to ARFF:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arff</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="p">{</span>
+   <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;relation&#39;</span><span class="p">:</span> <span class="s1">&#39;weather&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="p">[</span>
+       <span class="p">(</span><span class="s1">&#39;outlook&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="s1">&#39;rainy&#39;</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+       <span class="p">(</span><span class="s1">&#39;humidity&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+       <span class="p">(</span><span class="s1">&#39;windy&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">]),</span>
+       <span class="p">(</span><span class="s1">&#39;play&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">])</span>
+   <span class="p">],</span>
+   <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span>
+       <span class="p">[</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="mf">83.0</span><span class="p">,</span> <span class="mf">86.0</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">96.0</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">65.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">,</span> <span class="mf">65.0</span><span class="p">,</span> <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">95.0</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">69.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="mf">81.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+       <span class="p">[</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">71.0</span><span class="p">,</span> <span class="mf">91.0</span><span class="p">,</span> <span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="s1">&#39;no&#39;</span><span class="p">]</span>
+   <span class="p">],</span>
+<span class="p">}</span>
+
+<span class="nb">print</span> <span class="n">arff</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>resulting in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@RELATION</span> <span class="n">weather</span>
+
+<span class="nd">@ATTRIBUTE</span> <span class="n">outlook</span> <span class="p">{</span><span class="n">sunny</span><span class="p">,</span> <span class="n">overcast</span><span class="p">,</span> <span class="n">rainy</span><span class="p">}</span>
+<span class="nd">@ATTRIBUTE</span> <span class="n">temperature</span> <span class="n">REAL</span>
+<span class="nd">@ATTRIBUTE</span> <span class="n">humidity</span> <span class="n">REAL</span>
+<span class="nd">@ATTRIBUTE</span> <span class="n">windy</span> <span class="p">{</span><span class="n">TRUE</span><span class="p">,</span> <span class="n">FALSE</span><span class="p">}</span>
+<span class="nd">@ATTRIBUTE</span> <span class="n">play</span> <span class="p">{</span><span class="n">yes</span><span class="p">,</span> <span class="n">no</span><span class="p">}</span>
+
+<span class="nd">@DATA</span>
+<span class="n">sunny</span><span class="p">,</span><span class="mf">85.0</span><span class="p">,</span><span class="mf">85.0</span><span class="p">,</span><span class="n">FALSE</span><span class="p">,</span><span class="n">no</span>
+<span class="n">sunny</span><span class="p">,</span><span class="mf">80.0</span><span class="p">,</span><span class="mf">90.0</span><span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="n">no</span>
+<span class="n">overcast</span><span class="p">,</span><span class="mf">83.0</span><span class="p">,</span><span class="mf">86.0</span><span class="p">,</span><span class="n">FALSE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">rainy</span><span class="p">,</span><span class="mf">70.0</span><span class="p">,</span><span class="mf">96.0</span><span class="p">,</span><span class="n">FALSE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">rainy</span><span class="p">,</span><span class="mf">68.0</span><span class="p">,</span><span class="mf">80.0</span><span class="p">,</span><span class="n">FALSE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">rainy</span><span class="p">,</span><span class="mf">65.0</span><span class="p">,</span><span class="mf">70.0</span><span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="n">no</span>
+<span class="n">overcast</span><span class="p">,</span><span class="mf">64.0</span><span class="p">,</span><span class="mf">65.0</span><span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">sunny</span><span class="p">,</span><span class="mf">72.0</span><span class="p">,</span><span class="mf">95.0</span><span class="p">,</span><span class="n">FALSE</span><span class="p">,</span><span class="n">no</span>
+<span class="n">sunny</span><span class="p">,</span><span class="mf">69.0</span><span class="p">,</span><span class="mf">70.0</span><span class="p">,</span><span class="n">FALSE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">rainy</span><span class="p">,</span><span class="mf">75.0</span><span class="p">,</span><span class="mf">80.0</span><span class="p">,</span><span class="n">FALSE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">sunny</span><span class="p">,</span><span class="mf">75.0</span><span class="p">,</span><span class="mf">70.0</span><span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">overcast</span><span class="p">,</span><span class="mf">72.0</span><span class="p">,</span><span class="mf">90.0</span><span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">overcast</span><span class="p">,</span><span class="mf">81.0</span><span class="p">,</span><span class="mf">75.0</span><span class="p">,</span><span class="n">FALSE</span><span class="p">,</span><span class="n">yes</span>
+<span class="n">rainy</span><span class="p">,</span><span class="mf">71.0</span><span class="p">,</span><span class="mf">91.0</span><span class="p">,</span><span class="n">TRUE</span><span class="p">,</span><span class="n">no</span>
+<span class="o">%</span>
+<span class="o">%</span>
+<span class="o">%</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-an-object">
+<h3><a class="toc-backref" href="#id13">Loading An Object</a><a class="headerlink" href="#loading-an-object" title="Permalink to this headline">¶</a></h3>
+<p>Loading and ARFF file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arff</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+
+<span class="n">file_</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;@RELATION weather</span>
+
+<span class="s1">@ATTRIBUTE outlook {sunny, overcast, rainy}</span>
+<span class="s1">@ATTRIBUTE temperature REAL</span>
+<span class="s1">@ATTRIBUTE humidity REAL</span>
+<span class="s1">@ATTRIBUTE windy {TRUE, FALSE}</span>
+<span class="s1">@ATTRIBUTE play {yes, no}</span>
+
+<span class="s1">@DATA</span>
+<span class="s1">sunny,85.0,85.0,FALSE,no</span>
+<span class="s1">sunny,80.0,90.0,TRUE,no</span>
+<span class="s1">overcast,83.0,86.0,FALSE,yes</span>
+<span class="s1">rainy,70.0,96.0,FALSE,yes</span>
+<span class="s1">rainy,68.0,80.0,FALSE,yes</span>
+<span class="s1">rainy,65.0,70.0,TRUE,no</span>
+<span class="s1">overcast,64.0,65.0,TRUE,yes</span>
+<span class="s1">sunny,72.0,95.0,FALSE,no</span>
+<span class="s1">sunny,69.0,70.0,FALSE,yes</span>
+<span class="s1">rainy,75.0,80.0,FALSE,yes</span>
+<span class="s1">sunny,75.0,70.0,TRUE,yes</span>
+<span class="s1">overcast,72.0,90.0,TRUE,yes</span>
+<span class="s1">overcast,81.0,75.0,FALSE,yes</span>
+<span class="s1">rainy,71.0,91.0,TRUE,no</span>
+<span class="s1">%</span>
+<span class="s1">%</span>
+<span class="s1">% &#39;&#39;&#39;</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">file_</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>resulting in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="sa">u</span><span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="sa">u</span><span class="s1">&#39;outlook&#39;</span><span class="p">,</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;rainy&#39;</span><span class="p">]),</span>
+                 <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+                 <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;humidity&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+                 <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;windy&#39;</span><span class="p">,</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">]),</span>
+                 <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;play&#39;</span><span class="p">,</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;no&#39;</span><span class="p">])],</span>
+ <span class="sa">u</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="sa">u</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;no&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;no&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="mf">83.0</span><span class="p">,</span> <span class="mf">86.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">96.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">65.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;no&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">,</span> <span class="mf">65.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">95.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;no&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">69.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="mf">81.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">],</span>
+           <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;rainy&#39;</span><span class="p">,</span> <span class="mf">71.0</span><span class="p">,</span> <span class="mf">91.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;no&#39;</span><span class="p">]],</span>
+ <span class="sa">u</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+ <span class="sa">u</span><span class="s1">&#39;relation&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;weather&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-an-object-with-encoded-labels">
+<h3><a class="toc-backref" href="#id14">Loading An Object with encoded labels</a><a class="headerlink" href="#loading-an-object-with-encoded-labels" title="Permalink to this headline">¶</a></h3>
+<p>In some cases it is practical to have categorical data represented by
+integers, rather than strings. In <a class="reference external" href="http://scikit-learn.org">scikit-learn</a> for
+example, integer data can be directly converted in a continuous
+representation with the <a class="reference external" href="http://scikit-learn.org/stable/modules/preprocessing.html#encoding-categorical-features">One-Hot Encoder</a>,
+which is necessary for most machine learning algorithms, e.g.
+<a class="reference external" href="http://en.wikipedia.org/wiki/Support_vector_machine">Support Vector Machines</a>.
+The values <code class="docutils literal notranslate"><span class="pre">[u'sunny',</span> <span class="pre">u'overcast',</span> <span class="pre">u'rainy']</span></code> of the attribute
+<code class="docutils literal notranslate"><span class="pre">u'outlook'</span></code> would be represented by <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1,</span> <span class="pre">2]</span></code>. This representation can
+be directly used the  <a class="reference external" href="http://scikit-learn.org/stable/modules/preprocessing.html#encoding-categorical-features">One-Hot Encoder</a>.</p>
+<p>Encoding categorical data while reading it from a file saves at least one
+memory copy and can be invoked like in this example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">arff</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+
+<span class="n">file_</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;@RELATION weather</span>
+
+<span class="s1">@ATTRIBUTE outlook {sunny, overcast, rainy}</span>
+<span class="s1">@ATTRIBUTE temperature REAL</span>
+<span class="s1">@ATTRIBUTE humidity REAL</span>
+<span class="s1">@ATTRIBUTE windy {TRUE, FALSE}</span>
+<span class="s1">@ATTRIBUTE play {yes, no}</span>
+
+<span class="s1">@DATA</span>
+<span class="s1">sunny,85.0,85.0,FALSE,no</span>
+<span class="s1">sunny,80.0,90.0,TRUE,no</span>
+<span class="s1">overcast,83.0,86.0,FALSE,yes</span>
+<span class="s1">rainy,70.0,96.0,FALSE,yes</span>
+<span class="s1">rainy,68.0,80.0,FALSE,yes</span>
+<span class="s1">rainy,65.0,70.0,TRUE,no</span>
+<span class="s1">overcast,64.0,65.0,TRUE,yes</span>
+<span class="s1">sunny,72.0,95.0,FALSE,no</span>
+<span class="s1">sunny,69.0,70.0,FALSE,yes</span>
+<span class="s1">rainy,75.0,80.0,FALSE,yes</span>
+<span class="s1">sunny,75.0,70.0,TRUE,yes</span>
+<span class="s1">overcast,72.0,90.0,TRUE,yes</span>
+<span class="s1">overcast,81.0,75.0,FALSE,yes</span>
+<span class="s1">rainy,71.0,91.0,TRUE,no</span>
+<span class="s1">%</span>
+<span class="s1">%</span>
+<span class="s1">% &#39;&#39;&#39;</span>
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">ArffDecoder</span><span class="p">()</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">file_</span><span class="p">,</span> <span class="n">encode_nominal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>resulting in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="sa">u</span><span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="sa">u</span><span class="s1">&#39;outlook&#39;</span><span class="p">,</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;overcast&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;rainy&#39;</span><span class="p">]),</span>
+             <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;humidity&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;windy&#39;</span><span class="p">,</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;TRUE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">]),</span>
+             <span class="p">(</span><span class="sa">u</span><span class="s1">&#39;play&#39;</span><span class="p">,</span> <span class="p">[</span><span class="sa">u</span><span class="s1">&#39;yes&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;no&#39;</span><span class="p">])],</span>
+ <span class="sa">u</span><span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">83.0</span><span class="p">,</span> <span class="mf">86.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mf">96.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">65.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">64.0</span><span class="p">,</span> <span class="mf">65.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">95.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">69.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">80.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">72.0</span><span class="p">,</span> <span class="mf">90.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">81.0</span><span class="p">,</span> <span class="mf">75.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+           <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">71.0</span><span class="p">,</span> <span class="mf">91.0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span>
+ <span class="sa">u</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+ <span class="sa">u</span><span class="s1">&#39;relation&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;weather&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Using this dataset in <a class="reference external" href="scikit-learn.org">scikit-learn</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">preprocessing</span><span class="p">,</span> <span class="n">svm</span>
+<span class="n">enc</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">categorical_features</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">enc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>
+<span class="n">encoded_data</span> <span class="o">=</span> <span class="n">enc</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">svm</span><span class="o">.</span><span class="n">SVC</span><span class="p">()</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">encoded_data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">encoded_data</span><span class="p">[:,</span><span class="mi">4</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="working-with-sparse-data">
+<span id="sparse"></span><h3><a class="toc-backref" href="#id15">Working with sparse data</a><a class="headerlink" href="#working-with-sparse-data" title="Permalink to this headline">¶</a></h3>
+<p>Sparse data is data in which most of the elements are zero. By saving only
+non-zero elements, one can potentially save a lot of space on either the
+harddrive or in RAM. liac-arff supports two sparse data structures:</p>
+<ul>
+<li><p><a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/sparse.html">scipy.sparse.coo</a>
+is intended for easy construction of sparse matrices inside a python program.</p></li>
+<li><p>list of dictionaries in the form</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="n">column</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="n">value</span><span class="p">},</span>
+ <span class="p">{</span><span class="n">column</span><span class="p">:</span> <span class="n">value</span><span class="p">,</span> <span class="n">column</span><span class="p">:</span> <span class="n">value</span><span class="p">}]</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="section" id="dumping-sparse-data">
+<h4>Dumping sparse data<a class="headerlink" href="#dumping-sparse-data" title="Permalink to this headline">¶</a></h4>
+<p>Both <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/sparse.html">scipy.sparse.coo</a>
+matrices and lists of dictionaries can be used as the value for <cite>data</cite> in the
+arff object. Let’s look again at the XOR example, this time with the data
+encoded as a list of dictionaries:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">xor_dataset</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;XOR Dataset&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;relation&#39;</span><span class="p">:</span> <span class="s1">&#39;XOR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{},</span>
+        <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+        <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+        <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="k">print</span> <span class="n">arff</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">xor_dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>resulting in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span> <span class="n">XOR</span> <span class="n">Dataset</span>
+<span class="nd">@RELATION</span> <span class="n">XOR</span>
+
+<span class="nd">@ATTRIBUTE</span> <span class="n">input1</span> <span class="n">REAL</span>
+<span class="nd">@ATTRIBUTE</span> <span class="n">input2</span> <span class="n">REAL</span>
+<span class="nd">@ATTRIBUTE</span> <span class="n">y</span> <span class="n">REAL</span>
+
+<span class="nd">@DATA</span>
+<span class="p">{</span>  <span class="p">}</span>
+<span class="p">{</span> <span class="mi">1</span> <span class="mf">1.0</span><span class="p">,</span><span class="mi">2</span> <span class="mf">1.0</span> <span class="p">}</span>
+<span class="p">{</span> <span class="mi">0</span> <span class="mf">1.0</span><span class="p">,</span><span class="mi">2</span> <span class="mf">1.0</span> <span class="p">}</span>
+<span class="p">{</span> <span class="mi">0</span> <span class="mf">1.0</span><span class="p">,</span><span class="mi">1</span> <span class="mf">1.0</span> <span class="p">}</span>
+<span class="o">%</span>
+<span class="o">%</span>
+<span class="o">%</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="loading-sparse-data">
+<h4>Loading sparse data<a class="headerlink" href="#loading-sparse-data" title="Permalink to this headline">¶</a></h4>
+<p>When reading a sparse dataset, the user can choose a target data structure.
+These are represented by the constants <cite>arff.DENSE</cite>, <cite>arff.COO</cite> and <cite>arff.LOD</cite>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">decoder</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">ArffDecoder</span><span class="p">()</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">file_</span><span class="p">,</span> <span class="n">encode_nominal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="n">arff</span><span class="o">.</span><span class="n">LOD</span><span class="p">)</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>resulting in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s1">&#39;XOR Dataset&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;relation&#39;</span><span class="p">:</span> <span class="s1">&#39;XOR&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;attributes&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s1">&#39;input1&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;input2&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+        <span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;REAL&#39;</span><span class="p">),</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{},</span>
+        <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+        <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+        <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>When choosing <cite>arff.COO</cite>, the data can be dircetly passed to the scipy
+constructor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">sparse</span>
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">ArffDecoder</span><span class="p">()</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">file_</span><span class="p">,</span> <span class="n">encode_nominal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="n">arff</span><span class="o">.</span><span class="n">COO</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">row</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">col</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">matrix</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">coo_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">row</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">col</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="loading-progressively">
+<span id="generator"></span><h3><a class="toc-backref" href="#id16">Loading progressively</a><a class="headerlink" href="#loading-progressively" title="Permalink to this headline">¶</a></h3>
+<p>To avoid storing all the data in memory at once, dense and LOD sparse matrices
+can be loaded progressively. Setting <cite>return_type</cite> to <cite>arff.DENSE_GEN</cite> or
+<cite>arff.LOD_GEN</cite> results in the returned ‘data’ key containing a generator.
+Iterating through this generator will process each line of input and yield its
+data:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">file_</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;@RELATION weather</span>
+
+<span class="s1">@ATTRIBUTE outlook {sunny, overcast, rainy}</span>
+<span class="s1">@ATTRIBUTE temperature REAL</span>
+<span class="s1">@ATTRIBUTE humidity REAL</span>
+<span class="s1">@ATTRIBUTE windy {TRUE, FALSE}</span>
+<span class="s1">@ATTRIBUTE play {yes, no}</span>
+
+<span class="s1">@DATA</span>
+<span class="s1">sunny,85.0,85.0,FALSE,no</span>
+<span class="s1">sunny,80.0,90.0,TRUE,no</span>
+<span class="s1">overcast,83.0,86.0,FALSE,yes</span>
+<span class="s1">rainy,70.0,96.0,FALSE,yes</span>
+<span class="s1">rainy,68.0,80.0,FALSE,yes</span>
+<span class="s1">rainy,65.0,70.0,TRUE,no</span>
+<span class="s1">overcast,64.0,65.0,TRUE,yes</span>
+<span class="s1">sunny,72.0,95.0,FALSE,no</span>
+<span class="s1">sunny,69.0,70.0,FALSE,yes</span>
+<span class="s1">rainy,75.0,80.0,FALSE,yes</span>
+<span class="s1">sunny,75.0,70.0,TRUE,yes</span>
+<span class="s1">overcast,72.0,90.0,TRUE,yes</span>
+<span class="s1">overcast,81.0,75.0,FALSE,yes</span>
+<span class="s1">rainy,71.0,91.0,TRUE,no</span>
+<span class="s1">%</span>
+<span class="s1">%</span>
+<span class="s1">% &#39;&#39;&#39;</span>
+
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">ArffDecoder</span><span class="p">()</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">file_</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="n">arff</span><span class="o">.</span><span class="n">DENSE_GEN</span><span class="p">)</span>
+<span class="nb">next</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">])</span>  <span class="c1"># get process the first record</span>
+</pre></div>
+</div>
+<p>resulting in:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="sa">u</span><span class="s1">&#39;sunny&#39;</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="mf">85.0</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;FALSE&#39;</span><span class="p">,</span> <span class="sa">u</span><span class="s1">&#39;no&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>If you know the number of samples in your data, you can also use progressive
+loading to preallocate an array and do any data conversion on the fly:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">arff</span><span class="o">.</span><span class="n">ArffDecoder</span><span class="p">()</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">file_</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="n">arff</span><span class="o">.</span><span class="n">DENSE_GEN</span><span class="p">,</span> <span class="n">encode_nominal</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromiter</span><span class="p">((</span><span class="nb">tuple</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]),</span>
+                  <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;outlook&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;humidity&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;windy&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">),</span>
+                         <span class="p">(</span><span class="s1">&#39;play&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">)],</span>
+                  <span class="n">count</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><cite>arr[:2]</cite> is then:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">array</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">85.</span><span class="p">,</span> <span class="mf">85.</span><span class="p">,</span>  <span class="kc">True</span><span class="p">,</span>  <span class="kc">True</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">80.</span><span class="p">,</span> <span class="mf">90.</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span>  <span class="kc">True</span><span class="p">)],</span>
+      <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;outlook&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;i8&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;temperature&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;f8&#39;</span><span class="p">),</span>
+             <span class="p">(</span><span class="s1">&#39;humidity&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;f8&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;windy&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;play&#39;</span><span class="p">,</span> <span class="s1">&#39;?&#39;</span><span class="p">)])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">liac-arff 2.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2014, Renato de Pontes Pereira.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>
